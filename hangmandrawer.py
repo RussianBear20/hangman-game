@@ -23,16 +23,16 @@ class HangmanDrawer:
     right_leg_top = (350, 200)
     right_leg_bottom = (400, 250)
     font = cv2.FONT_HERSHEY_SIMPLEX
-    unchosen_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-                        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    correct_letters = []
-    letter_positions = [(50, 550), (75, 550), (100, 550), (125, 550), (150, 550), (175, 550), (200, 550), (225, 550),
-                        (250, 550)]
 
     def __init__(self, word):
         self.image = np.zeros((600, 600, 3), np.uint8)
         self.word = word.upper()
         self.letters = {}
+        self.unchosen_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        self.correct_letters = []
+        self.letter_positions = [(50, 550), (75, 550), (100, 550), (125, 550), (150, 550), (175, 550), (200, 550),
+                                 (225, 550), (250, 550)]
         for position, letter in enumerate(word):
             self.letters[position] = [False, letter.upper(), self.letter_positions[position]]
 
@@ -48,8 +48,8 @@ class HangmanDrawer:
     def draw_word(self):
         for value in self.letters.values():
             letter_present, character, position = value
-            if letter_present:
-                cv2.putText(self.image, character, position, self.font, 1, self.WHITE, 2, cv2.LINE_AA)
+            display_char = character if letter_present else "_"
+            cv2.putText(self.image, display_char, position, self.font, 1, self.WHITE, 2, cv2.LINE_AA)
 
     def draw_head(self):
         cv2.circle(self.image, self.head_center, self.head_radius, self.BLUE, 5)
@@ -82,5 +82,5 @@ class HangmanDrawer:
 
     def show_image(self):
         cv2.imshow("Hangman Game", self.image)
-        cv2.waitKey(3000)
+        cv2.waitKey(5000)
         cv2.destroyAllWindows()
