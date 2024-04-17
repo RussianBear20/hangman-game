@@ -67,6 +67,8 @@ class HangmanGame:
         print("As a rule the word can only be 10 letters long")
         print("Also the word cannot contain any punctuation")
         self.word = input("Input your word now player one: ")
+        while not (self.word.isalpha() and len(self.word) < 9):
+            self.word = input("Input your word now player one: ")
         self.word = self.word.upper()
         clear_screen()
         self.letters_left = len(set(self.word))
