@@ -73,32 +73,13 @@ class HangmanGame:
         self.hangman_drawer = HangmanDrawer(self.word)
 
     def draw_hangman(self):
-        match self.guesses_left:
-            case 5:
-                self.hangman_drawer.draw_head()
-            case 4:
-                self.hangman_drawer.draw_head()
-                self.hangman_drawer.draw_torso()
-            case 3:
-                self.hangman_drawer.draw_head()
-                self.hangman_drawer.draw_torso()
-                self.hangman_drawer.draw_left_arm()
-            case 2:
-                self.hangman_drawer.draw_head()
-                self.hangman_drawer.draw_torso()
-                self.hangman_drawer.draw_left_arm()
-                self.hangman_drawer.draw_right_arm()
-            case 1:
-                self.hangman_drawer.draw_head()
-                self.hangman_drawer.draw_torso()
-                self.hangman_drawer.draw_left_arm()
-                self.hangman_drawer.draw_right_arm()
-                self.hangman_drawer.draw_left_leg()
-            case 0:
-                self.hangman_drawer.draw_head()
-                self.hangman_drawer.draw_torso()
-                self.hangman_drawer.draw_left_arm()
-                self.hangman_drawer.draw_right_arm()
-                self.hangman_drawer.draw_left_leg()
-                self.hangman_drawer.draw_right_leg()
-
+        actions = [
+            self.hangman_drawer.draw_right_leg,
+            self.hangman_drawer.draw_left_leg,
+            self.hangman_drawer.draw_right_arm,
+            self.hangman_drawer.draw_left_arm,
+            self.hangman_drawer.draw_torso,
+            self.hangman_drawer.draw_head
+        ]
+        for action in actions[self.guesses_left:]:
+            action()
