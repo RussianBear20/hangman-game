@@ -31,8 +31,8 @@ class HangmanDrawer:
         self.unchosen_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                                  'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
         self.correct_letters = []
-        self.letter_positions = [(50, 550), (75, 550), (100, 550), (125, 550), (150, 550), (175, 550), (200, 550),
-                                 (225, 550), (250, 550)]
+        self.letter_positions = [(150, 550), (175, 550), (200, 550), (225, 550), (250, 550), (275, 550), (300, 550),
+                                 (325, 550), (350, 550)]
         for position, letter in enumerate(word):
             self.letters[position] = [False, letter.upper(), self.letter_positions[position]]
 
@@ -42,8 +42,7 @@ class HangmanDrawer:
         cv2.line(self.image, self.gallow_left, self.gallow_right, self.WHITE)
 
     def draw_letters(self):
-        cv2.putText(self.image, ''.join(self.unchosen_letters[:19]), (0, 350), self.font, 1, self.WHITE, 2, cv2.LINE_AA)
-        cv2.putText(self.image, ''.join(self.unchosen_letters[19:]), (0, 450), self.font, 1, self.WHITE, 2, cv2.LINE_AA)
+        cv2.putText(self.image, ''.join(self.unchosen_letters), (50, 350), self.font, 1, self.WHITE, 2, cv2.LINE_AA)
 
     def draw_word(self):
         for value in self.letters.values():
@@ -82,5 +81,5 @@ class HangmanDrawer:
 
     def show_image(self):
         cv2.imshow("Hangman Game", self.image)
-        cv2.waitKey(5000)
+        cv2.waitKey(8000)
         cv2.destroyAllWindows()
