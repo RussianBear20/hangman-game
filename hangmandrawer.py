@@ -28,13 +28,11 @@ class HangmanDrawer:
         self.image = np.zeros((600, 600, 3), np.uint8)
         self.word = word.upper()
         self.letters = {}
-        self.unchosen_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-                                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        self.available_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                                  'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
         self.correct_letters = []
-        self.letter_positions = [(150, 550), (175, 550), (200, 550), (225, 550), (250, 550), (275, 550), (300, 550),
-                                 (325, 550), (350, 550)]
         for position, letter in enumerate(word):
-            self.letters[position] = [False, letter.upper(), self.letter_positions[position]]
+            self.letters[position] = [False, letter.upper(), (225 + position * 25, 550)]
 
     def draw_gallows(self):
         self.image = np.zeros((600, 600, 3), np.uint8)
@@ -42,7 +40,7 @@ class HangmanDrawer:
         cv2.line(self.image, self.gallow_left, self.gallow_right, self.WHITE)
 
     def draw_letters(self):
-        cv2.putText(self.image, ''.join(self.unchosen_letters), (50, 350), self.font, 1, self.WHITE, 2, cv2.LINE_AA)
+        cv2.putText(self.image, ''.join(self.available_letters), (50, 350), self.font, 1, self.WHITE, 2, cv2.LINE_AA)
 
     def draw_word(self):
         for value in self.letters.values():
@@ -69,7 +67,7 @@ class HangmanDrawer:
         cv2.line(self.image, self.right_leg_top, self.right_leg_bottom, self.BLUE, 5)
 
     def remove_letter(self, letter):
-        self.unchosen_letters.remove(letter.upper())
+        self.available_letters[ord(letter.upper())-65] = '_'
 
     def add_letter(self, letter):
         letter = letter.upper()

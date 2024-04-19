@@ -53,6 +53,7 @@ class HangmanGame:
                 self.hangman_drawer.add_letter(letter)
                 self.letters_left -= 1
             if not correct_guess:
+                print(f"{letter} is not in the word")
                 self.guesses_left -= 1
             self.guesses.append(letter)
             self.hangman_drawer.draw_gallows()
