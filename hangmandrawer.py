@@ -43,10 +43,12 @@ class HangmanDrawer:
         cv2.putText(self.image, ''.join(self.available_letters), (50, 350), self.font, 1, self.WHITE, 2, cv2.LINE_AA)
 
     def draw_word(self):
+        display_word = ""
         for value in self.letters.values():
-            letter_present, character, position = value
+            letter_present, character, _ = value
             display_char = character if letter_present else "_"
-            cv2.putText(self.image, display_char, position, self.font, 1, self.WHITE, 2, cv2.LINE_AA)
+            display_word += display_char
+        cv2.putText(self.image, display_word, (250, 550), self.font, 1, self.WHITE, 2, cv2.LINE_AA)
 
     def draw_head(self):
         cv2.circle(self.image, self.head_center, self.head_radius, self.BLUE, 5)
